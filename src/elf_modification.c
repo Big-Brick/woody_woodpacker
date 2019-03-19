@@ -31,7 +31,7 @@ static void encrypt_text_section(void *ptr, size_t size) {
     size_t stext; /* .text size */
     Elf64_Shdr *sheader = get_section_header(ptr, ".text");
     if (sheader == NULL)
-        ; // ???
+        error("can't find .text section", NULL);
 
     text = ptr + sheader->sh_offset;
     stext = sheader->sh_size;
