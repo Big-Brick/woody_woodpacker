@@ -16,8 +16,15 @@ target_include_directories(woody_woodpacker
 
 target_sources(woody_woodpacker
     PUBLIC
+        ${CMAKE_CURRENT_LIST_DIR}/includes/woody.h
         ${CMAKE_CURRENT_LIST_DIR}/includes/elf.h
 
     PUBLIC
         ${CMAKE_CURRENT_LIST_DIR}/src/main.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/elf_modification.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/xxtea.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/libft_functions.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/utils.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/debug.c
 )
+
