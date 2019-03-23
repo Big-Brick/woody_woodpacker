@@ -7,13 +7,8 @@ set(GRAPHVIZ_GENERATE_PER_TARGET OFF)
 set(GRAPHVIZ_GENERATE_DEPENDERS  OFF)
 set(GRAPHVIZ_IGNORE_TARGETS )
 
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set(CMAKE_ASM_NASM_OBJECT_FORMAT macho64)
-    # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -macosx_version_min 10.13")
-    set(CMAKE_ASM_NASM_FLAGS "-DMACOS")
-elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
-endif ()
+set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_ASM_NASM_OBJECT_FORMAT elf64)
 
 add_executable(woody_woodpacker)
 
@@ -28,7 +23,7 @@ target_sources(woody_woodpacker
         ${CMAKE_CURRENT_LIST_DIR}/includes/elf.h
 
     PUBLIC
-        ${CMAKE_CURRENT_LIST_DIR}/src/loader.asm
+        # ${CMAKE_CURRENT_LIST_DIR}/src/loader.asm
         ${CMAKE_CURRENT_LIST_DIR}/src/main.c
         ${CMAKE_CURRENT_LIST_DIR}/src/elf_modification.c
         ${CMAKE_CURRENT_LIST_DIR}/src/xxtea.c
@@ -36,4 +31,3 @@ target_sources(woody_woodpacker
         ${CMAKE_CURRENT_LIST_DIR}/src/utils.c
         ${CMAKE_CURRENT_LIST_DIR}/src/debug.c
 )
-

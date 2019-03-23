@@ -105,8 +105,8 @@ static void encrypt_text_section(void *ptr, size_t size) {
     stext = sheader->sh_size;
 
     /* XXTEA works with blocks of 32 bits */
-//    xxtea_encrypt(text, stext / 4, (uint32_t *)key);
-//    xxtea_decrypt(text, stext / 4, (uint32_t *)key);
+    xxtea_encrypt(text, stext / 4, (uint32_t *)key);
+    xxtea_decrypt(text, stext / 4, (uint32_t *)key);
 }
 
 /* returns loader offset in file */
@@ -141,15 +141,15 @@ void modify_segment(void *ptr) {
 //        }
 //    }
 
-    if (header->e_shoff > oloader)
+    if (header->e_shoff >= oloader)
         header->e_shoff += aloader + sloader;
 
     /* edit sections after the loader */
     for (size_t i = 0; i < header->e_shnum; i++) {
-        if (sheader[i].sh_offset > oloader) {
+        if (sheader[i].sh_offset >= oloader) {
             sheader[i].sh_offset += aloader + sloader;
-            if (sheader[i].sh_addr)
-                sheader[i].sh_addr += aloader + sloader;
+//            if (sheader[i].sh_addr)
+//                sheader[i].sh_addr += aloader + sloader;
         }
     }
     uint32_t e_entry = ((Elf64_Ehdr *)ptr)->e_entry;
@@ -162,13 +162,14 @@ void modify_segment(void *ptr) {
 
 #include <string.h>
 #include <errno.h>
+
 void modify_elf(void *ptr, size_t size) {
 
     int fd;
     uint32_t e_entry = ((Elf64_Ehdr *)ptr)->e_entry;
 
     encrypt_text_section(ptr, size);
-    modify_segment(ptr);
+//    modify_segment(ptr);
 
     if ((fd = open(EXEC_NAME, O_RDWR | O_CREAT, 0755)) == -1)
         error(EXEC_NAME, strerror(errno));
@@ -183,9 +184,10 @@ void modify_elf(void *ptr, size_t size) {
     write(fd, ptr, oloader);
     for (size_t i = 0; i < aloader; i++)
         write(fd, "\0", 1);
-    write(fd, &loader, sloader - 4);
-    write(fd, &e_entry, 4);
-//    write(fd, size, 4);
+    write(fd, &loader, sloader);
+//    write(fd, buff, 1);
+ //   write(fd, &e_entry, 4);
+    write(1, "\n", 1);
     write(fd, ptr + oloader, size - oloader);
 
     close(fd);
