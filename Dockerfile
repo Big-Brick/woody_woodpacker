@@ -19,9 +19,11 @@ RUN apt-get update \
     file                       \
     less                       \
     build-essential            \
+    binutils                   \
     gcc-multilib               \
     nasm                       \
     valgrind                   \
+    gdb                        \
  && apt clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -41,6 +43,7 @@ RUN cd /opt \
 
 ADD test.c ./
 
-RUN gcc -o test test.c && gcc -m32 -o test32 test.c
+RUN gcc -g test.c -o test  \
+ && gcc -g test.c -o test32 -m32
 
 ENTRYPOINT cmake -S /mnt -B build &&  cmake --build build && ln -s ./build/woody_woodpacker . ; bash

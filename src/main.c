@@ -56,11 +56,9 @@ static void check_file_type(char *name, unsigned char *ptr) {
 
 int main(int ac, char *av[]) {
 
-    int        fd;
+//    int        fd;
     void       *elf;
     size_t     self;
-
-    sleep(1);
 
     if (ac != 2)
         usage(EXIT_FAILURE);
@@ -70,9 +68,9 @@ int main(int ac, char *av[]) {
 
     modify_elf(elf, self);
 
-    if ((fd = open(EXEC_NAME, O_RDWR | O_CREAT, 0755)) == -1)
-        error(EXEC_NAME, strerror(errno));
-    write(fd, elf, self);
+//    if ((fd = open(EXEC_NAME, O_RDWR | O_CREAT, 0755)) == -1)
+//        error(EXEC_NAME, strerror(errno));
+//    write(fd, elf, self);
 
     return (EXIT_SUCCESS);
 }
