@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2017/01/06 13:07:55 by adzikovs          #+#    #+#             */
+/*   Updated: 2018/09/11 15:20:12 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdlib.h>
 
-#include "woody.h"
-
-int		main(int argc, char **argv)
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_workspace		workspace;
+	size_t		i;
 
-	if (argc != 2)
+	i = 0;
+	while ((s1[i] || s2[i]) && i < n)
 	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+		i++;
 	}
-	check_and_prepare(argv[1], &workspace);
 	return (0);
 }

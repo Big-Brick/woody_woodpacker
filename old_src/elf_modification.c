@@ -9,8 +9,8 @@
 const char  *key = "1234567890abcdef";
 
 void loader(void);
-extern uint32_t _loader;     // loader size
-extern uint32_t sloader;     // loader size
+//extern uint32_t _loader;     // loader size
+//extern uint32_t sloader;     // loader size
 static uint32_t aloader;     // loader align
 static uint32_t oloader;     // loader offset
 static uint32_t dloader = 4; // loader data
@@ -174,8 +174,8 @@ void modify_elf(void *ptr, size_t size) {
     if ((fd = open(EXEC_NAME, O_RDWR | O_CREAT, 0755)) == -1)
         error(EXEC_NAME, strerror(errno));
 
-    debug("loader        : %p",  loader);
-    debug("loader size   : %d",  sloader);
+//    debug("loader        : %p",  loader);
+//    debug("loader size   : %d",  sloader);
     debug("loader offset : %ld", (long)oloader);
     debug("loader align  : %ld", (long)aloader);
     debug("rest          : %lu", (unsigned long)(size - oloader));
@@ -184,10 +184,10 @@ void modify_elf(void *ptr, size_t size) {
     write(fd, ptr, oloader);
     for (size_t i = 0; i < aloader; i++)
         write(fd, "\0", 1);
-    write(fd, &loader, sloader);
+//    write(fd, &loader, sloader);
 //    write(fd, buff, 1);
  //   write(fd, &e_entry, 4);
-    write(1, "\n", 1);
+//    write(1, "\n", 1);
     write(fd, ptr + oloader, size - oloader);
 
     close(fd);

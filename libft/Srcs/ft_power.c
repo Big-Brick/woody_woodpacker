@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_power.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: adzikovs <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2017/01/06 12:07:56 by adzikovs          #+#    #+#             */
+/*   Updated: 2017/01/06 12:10:24 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-#include "woody.h"
-
-int		main(int argc, char **argv)
+long	ft_power(long value, long power)
 {
-	t_workspace		workspace;
+	long	res;
 
-	if (argc != 2)
-	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
-	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
+	res = 1;
+	while (power-- > 0)
+		res *= value;
+	return (res);
 }

@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_find_char.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: adzikovs <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2017/04/03 13:33:21 by adzikovs          #+#    #+#             */
+/*   Updated: 2017/04/03 13:36:09 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-#include "woody.h"
-
-int		main(int argc, char **argv)
+int		ft_find_char(char *str, char c)
 {
-	t_workspace		workspace;
+	int		i;
 
-	if (argc != 2)
-	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
-	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
+	i = -1;
+	while (str[++i])
+		if (str[i] == c)
+			return (i);
+	return (-1);
 }

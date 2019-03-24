@@ -1,32 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   woody.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/24 15:27:13 by adzikovs          #+#    #+#             */
+/*   Updated: 2019/03/24 16:46:51 by adzikovs         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef WOODY_H
-#define WOODY_H
+# define WOODY_H
 
-#include "elf.h"
+# include <stdlib.h>
 
-#include <stddef.h> // size_t
+# include "elf.h"
 
-#define EXEC_NAME "woody"
+# define EXEC_NAME "woody"
+# define LOADER_NAME "loader.o"
 
-#define debug(fmt, ...) {\
-    do {\
-        fprintf(stderr, "[DEBUG] (%s():%d) " fmt "\n", __func__, __LINE__, ##__VA_ARGS__);\
-    } while(0);\
-}
+typedef struct		s_workspace
+{
+	void			*input;
+	size_t			input_size;
+	void			*loader;
+	size_t			loader_size;
+	void			*res;
+	size_t			res_size;
+}					t_workspace;
 
-void    modify_elf(void *ptr, size_t size);
+int					check_and_prepare(char *filename, t_workspace *wsp);
 
-void    xxtea_encrypt(uint32_t *data, size_t len, const uint32_t *key);
-void    xxtea_decrypt(uint32_t *data, size_t len, const uint32_t *key);
-
-void   *ft_memset(void *b, int c, size_t len);
-int     ft_memcmp(const void *s1, const void *s2, size_t n);
-void   *ft_memmove(void *dst, const void *src, size_t len);
-size_t  ft_strlen(const char *s);
-int     ft_strcmp(const char *s1, const char *s2);
-
-void    error(char *err, char *err_str);
-
-void    print_elf_headers(void *ptr);
+int					check_input_file(void *ptr, size_t size);
 
 #endif

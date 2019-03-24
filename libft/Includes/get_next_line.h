@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: adzikovs <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2016/12/14 10:45:43 by adzikovs          #+#    #+#             */
+/*   Updated: 2017/01/18 15:39:43 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# define BUFF_SIZE 1
+# include <string.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
 
-#include "woody.h"
+int		get_next_line(const int fd, char **line);
 
-int		main(int argc, char **argv)
-{
-	t_workspace		workspace;
-
-	if (argc != 2)
-	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
-	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
-}
+#endif

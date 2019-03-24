@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: adzikovs <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2018/10/18 10:34:10 by adzikovs          #+#    #+#             */
+/*   Updated: 2018/10/18 10:34:10 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-#include "woody.h"
-
-int		main(int argc, char **argv)
+void		*ft_memdup(const void *src, size_t size)
 {
-	t_workspace		workspace;
+	void	*res;
 
-	if (argc != 2)
-	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
-	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
+	if (src == NULL)
+		return (NULL);
+	res = malloc(size);
+	ft_memcpy(res, src, size);
+	return (res);
 }

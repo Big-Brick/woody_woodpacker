@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: adzikovs <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2016/11/28 15:53:56 by adzikovs          #+#    #+#             */
+/*   Updated: 2017/04/03 14:45:48 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
-#include "woody.h"
-
-int		main(int argc, char **argv)
+void	ft_bzero(void *addr, size_t size)
 {
-	t_workspace		workspace;
+	char	*buf;
 
-	if (argc != 2)
+	if (addr)
 	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
+		buf = addr;
+		while (size-- != 0)
+			buf[size] = 0;
 	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
 }

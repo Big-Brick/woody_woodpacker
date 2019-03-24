@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: adzikovs <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2017/01/12 16:17:39 by adzikovs          #+#    #+#             */
+/*   Updated: 2017/02/01 13:57:49 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "flags.h"
+#include "libprintf.h"
 
-#include "woody.h"
-
-int		main(int argc, char **argv)
+int		ft_putchar(char c, const int *flags)
 {
-	t_workspace		workspace;
-
-	if (argc != 2)
-	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
-	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
+	return (write(flags[FLAGS_AM], &c, 1));
 }

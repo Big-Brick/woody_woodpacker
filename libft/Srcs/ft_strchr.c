@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2018/09/13 14:35:09 by adzikovs          #+#    #+#             */
+/*   Updated: 2018/09/13 14:36:07 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <string.h>
 
-#include "woody.h"
-
-int		main(int argc, char **argv)
+char	*ft_strchr(const char *s, int c)
 {
-	t_workspace		workspace;
+	size_t	i;
 
-	if (argc != 2)
+	i = 0;
+	while (s[i])
 	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
+		if (s[i] == c)
+			return ((char*)s + i);
+		i++;
 	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
+	return (NULL);
 }

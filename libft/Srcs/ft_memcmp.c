@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2018/09/15 13:56:17 by adzikovs          #+#    #+#             */
+/*   Updated: 2018/09/15 13:56:24 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <string.h>
 
-#include "woody.h"
-
-int		main(int argc, char **argv)
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_workspace		workspace;
+	const unsigned char		*buff1;
+	const unsigned char		*buff2;
+	size_t					i;
 
-	if (argc != 2)
+	if (s1 == NULL || s2 == NULL)
+		return (-1);
+	buff1 = s1;
+	buff2 = s2;
+	i = 0;
+	while (i < n)
 	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
+		if (buff1[i] != buff2[i])
+			return (buff1[i] - buff2[i]);
+		i++;
 	}
-	check_and_prepare(argv[1], &workspace);
 	return (0);
 }

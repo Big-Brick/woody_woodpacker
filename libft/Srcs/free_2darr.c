@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_2darr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2018/09/25 13:39:45 by adzikovs          #+#    #+#             */
+/*   Updated: 2018/09/25 13:39:45 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include <stdlib.h>
 
-#include "woody.h"
-
-int		main(int argc, char **argv)
+void		free_2darr(void **arr)
 {
-	t_workspace		workspace;
+	size_t	i;
 
-	if (argc != 2)
+	i = 0;
+	while (arr[i])
 	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
+		free(arr[i]);
+		i++;
 	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
+	free(arr);
+}
+
+size_t		get_2d_arr_size(void **arr)
+{
+	size_t	i;
+
+	if (arr == NULL)
+		return (0);
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }

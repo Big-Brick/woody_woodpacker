@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:26:23 by adzikovs         ###   ########.fr       */
+/*   Created: 2018/11/08 12:01:56 by adzikovs          #+#    #+#             */
+/*   Updated: 2018/11/08 12:02:01 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-
-#include "woody.h"
-
-int		main(int argc, char **argv)
+int					ft_tolower(int c)
 {
-	t_workspace		workspace;
+	unsigned char	buff;
 
-	if (argc != 2)
-	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
-	}
-	check_and_prepare(argv[1], &workspace);
-	return (0);
+	buff = (unsigned char)c;
+	if ('A' <= buff && buff <= 'Z')
+		return ('a' + (buff - 'A'));
+	else
+		return (buff);
 }
