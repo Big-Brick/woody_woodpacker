@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_and_prepare.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
+/*   By: a.dzykovskyi <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:31:02 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:47:38 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/26 12:10:48 by a.dzykovskyi     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@
 	S_IRGRP | S_IXGRP | \
 	S_IROTH | S_IXOTH
 
-static int			prepare_file(char *filename, void **res, size_t *size)
+static int			prepare_file(char *filename, void **res, int prot, size_t *size)
 {
 	int				fd;
 	struct stat		buff;
 
 
-	if (( fd = open(filename, O_RDONLY)) < 0)
+	if (( fd = open(filename, O_RDWR)) < 0)
 		ERROR_RETURN(-1)
 	if (fstat(fd, &buff))
 		ERROR_RETURN(fd)
@@ -51,7 +51,7 @@ static int			prepare_file(char *filename, void **res, size_t *size)
 		close(fd);
 		return (WTF);
 	}
-	if (MMAP(*res, (size_t)buff.st_size, PROT_READ, MAP_SHARED, fd))
+	if (MMAP(*res, (size_t)buff.st_size, prot, MAP_SHARED, fd))
 		ERROR_RETURN(fd);
 	*size = (size_t)buff.st_size;
 	close(fd);
@@ -88,9 +88,9 @@ int					check_and_prepare(char *filename, t_workspace *wsp)
 {
 	if (filename == NULL || wsp == NULL)
 		return (WTF);
-	if (prepare_file(filename, &wsp->input, &wsp->input_size))
+	if (prepare_file(filename, &wsp->input, PROT_READ, &wsp->input_size))
 		return (WTF);
-	if (prepare_file(LOADER_NAME, &wsp->loader, &wsp->loader_size))
+	if (prepare_file(LOADER_NAME, &wsp->loader, PROT_READ | PROT_WRITE, &wsp->loader_size))
 		return (WTF);
 	if (prepare_output(wsp, wsp->input_size + wsp->loader_size))
 		return (WTF);

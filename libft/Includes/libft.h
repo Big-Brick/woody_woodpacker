@@ -70,6 +70,8 @@ void	*ft_memset(void *dst, int c, size_t len);
 
 void	*ft_memcpy(void *dst, const void *src, size_t len);
 
+void	*ft_memmove(void *dst, void *src, size_t n);
+
 void	*ft_memdup(const void *src, size_t size);
 
 int		ft_count_digits(uintmax_t value, int base);

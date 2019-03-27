@@ -70,4 +70,4 @@ message("EXECUTABLE_OUTPUT_PATH - ${EXECUTABLE_OUTPUT_PATH}")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/${INC})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/${INC}/ft_printf)
-add_library(${NAME} ${SOURCES_REL})
+add_library(${NAME} ${SOURCES_REL} Srcs/ft_memmove.c)

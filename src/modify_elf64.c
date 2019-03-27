@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   modify_elf64.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: a.dzykovskyi <marvin@42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 15:19:54 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/26 11:55:08 by a.dzykovskyi     ###   ########.fr       */
+/*   Created: 2019/03/26 11:44:53 by a.dzykovskyi      #+#    #+#             */
+/*   Updated: 2019/03/27 10:52:56 by a.dzykovskyi     ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
+#include "return_codes.h"
+#include "elf.h"
 #include "woody.h"
 
-int		main(int argc, char **argv)
+int					modify_elf64(t_workspace *wsp)
 {
-	t_workspace		workspace;
+	Elf64_Ehdr		*hdr;
+	Elf64_Ehdr		*hdr2;
 
-	if (argc != 2)
-	{
-		write(1, "Usage: woody_woodpacker <file>\n", 31);
-		return (1);
-	}
-	if (check_and_prepare(argv[1], &workspace))
-	{
-		write(1, "Check fail!\n", 12);
-		return (1);
-	}
-	if (modify_elf64(&workspace))
-	{
-		write(1, "Fail!\n", 6);
-		return (1);
-	}
-	return (0);
+	hdr = wsp->input;
+	hdr2 = wsp->res;
+	ft_memcpy(wsp->res, wsp->input, wsp->input_size);
+//	if (insert_new_prog_hdr64(wsp->res, wsp->res_size))
+//		return (WTF);
+	if (insert_loader64(wsp))
+		return (WTF);
+	return (OK);
 }

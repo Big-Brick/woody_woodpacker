@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input_file.c                                 :+:      :+:    :+:   */
+/*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 17:40:46 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:40:46 by adzikovs         ###   ########.fr       */
+/*   Created: 2019/03/25 13:19:13 by a.dzykovskyi      #+#    #+#             */
+/*   Updated: 2019/03/26 19:20:28 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <unistd.h>
+#ifndef WOODPACKER_DEFINES_H
+# define WOODPACKER_DEFINES_H
 
-#include "return_codes.h"
-#include "elf.h"
+# define HDR 0
+# define SECT 1
 
-int		check_input_file(void *ptr, size_t size)
-{
-	Elf64_Ehdr	*hdr;
+# define PHNUM64(p) (((Elf64_Ehdr*)p)->e_phnum)
+# define PHDRS64(p) ((Elf64_Phdr*)((void*)p + ((Elf64_Ehdr*)p)->e_phoff))
+# define SECT_HDRS64(p) ((Elf64_Shdr*)((void*)p + ((Elf64_Ehdr*)p)->e_shoff))
 
-	if (ptr == NULL)
-		return (WTF);
-	hdr = ptr;
-//	if (hdr->e_type != ELFCLASS64)
-//	{
-//		write(1, "Only elf64 supported!\n", 22);
-//		return (WTF);
-//	}
-	return (OK);
-}
+#endif

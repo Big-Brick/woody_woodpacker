@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input_file.c                                 :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/24 17:40:46 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/24 17:40:46 by adzikovs         ###   ########.fr       */
+/*   Created: 2019/03/26 19:26:50 by adzikovs          #+#    #+#             */
+/*   Updated: 2019/03/26 19:27:39 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include <unistd.h>
 
-#include "return_codes.h"
-#include "elf.h"
-
-int		check_input_file(void *ptr, size_t size)
+void		*ft_memmove(void *dst, void *src, size_t n)
 {
-	Elf64_Ehdr	*hdr;
+	size_t	start;
+	size_t	end;
+	int		inc;
 
-	if (ptr == NULL)
-		return (WTF);
-	hdr = ptr;
-//	if (hdr->e_type != ELFCLASS64)
-//	{
-//		write(1, "Only elf64 supported!\n", 22);
-//		return (WTF);
-//	}
-	return (OK);
+	start = 0;
+	end = n;
+	inc = 1;
+	if (dst > src)
+	{
+		start = n;
+		end = 0;
+		inc = -1;
+	}
+	while (start != end)
+	{
+		if (inc < 0)
+			start--;
+		((char*)dst)[start] = ((char*)src)[start];
+		if (inc > 0)
+			start++;
+	}
+	return (dst);
 }
