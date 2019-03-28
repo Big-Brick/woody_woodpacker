@@ -91,7 +91,7 @@ int			ft_field_width(int digits, int sign, const int *flags, int mode)
 	if ((flags[1] || flags[2]) && (sign < 0 || flags[3] || flags[4]) && mode < 3
 		&& lang[0] != 0)
 		ret += write(flags[FLAGS_AM], lang, 1);
-	if ((sign < 0 || flags[3] || flags[4]) && mode != -1 & mode != 6)
+	if ((sign < 0 || flags[3] || flags[4]) && (mode != -1) && (mode != 6))
 		padd--;
 	if ((flags[2] == 0 && mode < 3) || (flags[2] && mode > 2))
 		while (padd-- > 0)

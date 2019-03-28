@@ -27,7 +27,7 @@ static unsigned		count_digits(int i)
 	return (res);
 }
 
-static long			pow(int value, unsigned power)
+static long			ft_pow(int value, unsigned power)
 {
 	long	res;
 
@@ -57,7 +57,7 @@ char				*ft_itoa(int i)
 		res = (char*)malloc(sizeof(*res) * (count_digits(i) + 1));
 		ct = 0;
 	}
-	base = pow(10, count_digits(i) - 1);
+	base = ft_pow(10, count_digits(i) - 1);
 	while (base)
 	{
 		res[ct++] = '0' + (i / base);

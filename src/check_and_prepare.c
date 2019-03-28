@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_and_prepare.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: a.dzykovskyi <marvin@42.fr>                +#+  +:+       +#+        */
+/*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:31:02 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/26 12:10:48 by a.dzykovskyi     ###   ########.fr       */
+/*   Updated: 2019/03/28 18:44:49 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <sys/fcntl.h>
 
 #include "return_codes.h"
+#include "defines.h"
 #include "woody.h"
 
 #define ERROR_RETURN(fd) \
@@ -58,6 +59,26 @@ static int			prepare_file(char *filename, void **res, int prot, size_t *size)
 	return (OK);
 }
 
+static size_t		get_align64(Elf64_Ehdr *file)
+{
+	size_t			res;
+	size_t			i;
+	Elf64_Phdr		*phdr;
+
+	res = 0;
+	phdr = PHDRS64(file);
+	i = 0;
+	while (i < file->e_phnum)
+	{
+		if (phdr->p_type == PT_LOAD &&
+			phdr->p_align > res)
+			res = phdr->p_align;
+		phdr++;
+		i++;
+	}
+	return (res);
+}
+
 static int			prepare_output(t_workspace *wsp, size_t size)
 {
 	int				fd;
@@ -86,13 +107,16 @@ static int			prepare_output(t_workspace *wsp, size_t size)
 
 int					check_and_prepare(char *filename, t_workspace *wsp)
 {
+	size_t			size;
+
 	if (filename == NULL || wsp == NULL)
 		return (WTF);
 	if (prepare_file(filename, &wsp->input, PROT_READ, &wsp->input_size))
 		return (WTF);
 	if (prepare_file(LOADER_NAME, &wsp->loader, PROT_READ | PROT_WRITE, &wsp->loader_size))
 		return (WTF);
-	if (prepare_output(wsp, wsp->input_size + wsp->loader_size))
+	size = wsp->loader_size;// + get_align64(wsp->input);
+	if (prepare_output(wsp, wsp->input_size + size))
 		return (WTF);
 	return (check_input_file(wsp->input, wsp->input_size));
 }

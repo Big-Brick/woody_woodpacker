@@ -48,6 +48,10 @@ int					add_new_segment64(t_workspace *wsp);
 
 int					insert_new_prog_hdr64(Elf64_Ehdr *file, size_t size);
 
+int					find_vaddr_and_offset64(Elf64_Ehdr *file,
+						size_t used_sz, size_t total_sz,
+						Elf64_Phdr *loader);
+
 size_t				copy_loader64(void *dst, void *loader);
 
 int					insert_loader64(t_workspace *wsp);

@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:20:32 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/27 18:10:01 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/28 19:15:22 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ size_t			copy_loader64(void *dst, void *loader)
 
 	start = find_symbol_by_name64(loader, "loader_start");
 	end = find_symbol_by_name64(loader, "loader_end");
-	if (start == NULL || end == NULL || end <= start)
+	if (end <= start)
 		return (0);
 	size = end - start;
-	ft_memcpy(dst, start, size);
+	if (dst && start)
+		ft_memcpy(dst, start, size);
 	return (size);
 }
 
@@ -80,13 +81,18 @@ int				insert_loader64(t_workspace *wsp)
 	loader->p_type = PT_LOAD;
 	loader->p_flags = PF_X | PF_R;
 	loader->p_offset = wsp->input_size;
-//	loader->p_vaddr = last_phdr->p_vaddr + last_phdr->p_memsz;
-	loader->p_vaddr = 0x800000 + loader->p_offset;
+	loader->p_filesz = copy_loader64(NULL, wsp->loader);
+	if (loader->p_filesz == 0)
+		return (WTF);
+	loader->p_memsz = loader->p_filesz;
+	if (find_vaddr_and_offset64(wsp->res,
+			wsp->input_size, wsp->res_size, loader))
+			return (WTF);
+//	loader->p_offset = wsp->input_size;
+//	loader->p_vaddr = 0x800000 + loader->p_offset;
 					//0x400000
+//	loader->p_align = 0x200000;
 	loader->p_paddr = loader->p_vaddr;
-	loader->p_align = 0x200000;
-//	loader->p_filesz = 64;
-//	loader->p_memsz = 64;
 	loader->p_filesz = copy_loader64(wsp->res + loader->p_offset, wsp->loader);
 	if (loader->p_filesz == 0)
 		return (WTF);

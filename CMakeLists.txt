@@ -25,7 +25,7 @@ set(SRCS
 	src/prepare_loader64.c
 	src/modify_elf64.c
 	src/insert_new_prog_hdr64.c
-	src/insert_loader64.c)
+	src/insert_loader64.c src/find_vaddr64.c)
 
 add_executable(woody_woodpacker ${SRCS})
 
