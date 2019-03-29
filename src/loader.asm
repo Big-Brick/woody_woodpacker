@@ -15,7 +15,7 @@ loader_start:
     pop rsi
     pop rdi
     pop rax
-    mov rax, 0x400430 ; ptr + .text->offset + jumpaddr_off + 1
-    jmp rax
+    mov r15, 0x400430 ; ptr + .text->offset + jumpaddr_off + 1
+    jmp r15
     msg db "....WOODY....", 0xA, 0x0, 0x0
 loader_end:

@@ -26,6 +26,8 @@ typedef struct		s_workspace
 	size_t			input_size;
 	void			*loader;
 	size_t			loader_size;
+	void			*decryptor;
+	size_t			decryptor_size;
 	void			*res;
 	size_t			res_size;
 }					t_workspace;

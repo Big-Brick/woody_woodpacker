@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:31:02 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/28 18:44:49 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/29 12:53:25 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@
 	S_IRWXU | \
 	S_IRGRP | S_IXGRP | \
 	S_IROTH | S_IXOTH
+
+#include <stdlib.h>
+#include <signal.h>
+
+void				handler(int signum)
+{
+	write(1, "Fail!\n", 6);
+	exit(0);
+}
+
+int					conf_handling(void)
+{
+	struct sigaction	sig;
+
+	sig.sa_handler = &handler;
+	sigemptyset(&sig.sa_mask);
+	sigaction(SIGSEGV, &sig, NULL);
+	return (0);
+}
+
 
 static int			prepare_file(char *filename, void **res, int prot, size_t *size)
 {
@@ -109,13 +129,16 @@ int					check_and_prepare(char *filename, t_workspace *wsp)
 {
 	size_t			size;
 
+	conf_handling();
 	if (filename == NULL || wsp == NULL)
 		return (WTF);
 	if (prepare_file(filename, &wsp->input, PROT_READ, &wsp->input_size))
 		return (WTF);
 	if (prepare_file(LOADER_NAME, &wsp->loader, PROT_READ | PROT_WRITE, &wsp->loader_size))
 		return (WTF);
-	size = wsp->loader_size;// + get_align64(wsp->input);
+	size = copy_loader64(NULL, wsp->loader);
+	if (size == 0)
+		size = wsp->loader_size;
 	if (prepare_output(wsp, wsp->input_size + size))
 		return (WTF);
 	return (check_input_file(wsp->input, wsp->input_size));
