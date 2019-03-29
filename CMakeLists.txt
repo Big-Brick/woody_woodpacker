@@ -40,3 +40,8 @@ add_custom_command(OUTPUT loader.o
 	COMMAND ${CMAKE_ASM_NASM_COMPILER} -f elf64 -o ${CMAKE_CURRENT_SOURCE_DIR}/loader.o ${CMAKE_CURRENT_SOURCE_DIR}/src/loader.asm)
 
 add_custom_target(loader DEPENDS loader.o)
+
+add_custom_command(OUTPUT xxtea_decrypt.o
+		COMMAND ${CMAKE_C_COMPILER} -o ${CMAKE_CURRENT_SOURCE_DIR}/xxtea_decrypt.o -c ${CMAKE_CURRENT_SOURCE_DIR}/src/xxtea_decrypt.c)
+
+add_custom_target(decryptor DEPENDS xxtea_decrypt.o)

@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 13:14:34 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/29 13:14:34 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/29 18:16:33 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,4 @@ void	xxtea_decrypt(uint32_t *data, size_t len, const uint32_t *key)
 		sum -= DELTA;
 	}
 }
-xxtea_decrypt_end:
+xxtea_decrypt_end:;
