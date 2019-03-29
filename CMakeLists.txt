@@ -24,7 +24,7 @@ set(SRCS
 	src/modify_elf64.c
 	src/insert_loader64.c
 	src/find_vaddr64.c
-	src/xxtea_encrypt.c)
+	src/xxtea_encrypt.c src/handling.c)
 
 add_executable(woody_woodpacker ${SRCS})
 

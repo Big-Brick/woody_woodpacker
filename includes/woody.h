@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:27:13 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/29 17:39:12 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/29 17:39:59 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct		s_workspace
 	void			*res;
 	size_t			res_size;
 }					t_workspace;
+
+int					conf_handling(void);
 
 int					check_and_prepare(char *filename, t_workspace *wsp);
 

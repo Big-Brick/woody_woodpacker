@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:31:02 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/29 12:53:25 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/29 17:37:26 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,6 @@
 	S_IRWXU | \
 	S_IRGRP | S_IXGRP | \
 	S_IROTH | S_IXOTH
-
-#include <stdlib.h>
-#include <signal.h>
-
-void				handler(int signum)
-{
-	write(1, "Fail!\n", 6);
-	exit(0);
-}
-
-int					conf_handling(void)
-{
-	struct sigaction	sig;
-
-	sig.sa_handler = &handler;
-	sigemptyset(&sig.sa_mask);
-	sigaction(SIGSEGV, &sig, NULL);
-	return (0);
-}
-
 
 static int			prepare_file(char *filename, void **res, int prot, size_t *size)
 {
