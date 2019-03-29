@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:20:32 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/28 19:15:22 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/29 17:33:49 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,9 @@ static size_t	get_vaddr(Elf64_Ehdr *file)
 int				insert_loader64(t_workspace *wsp)
 {
 	Elf64_Phdr	*loader;
-//	Elf64_Phdr	*last_phdr;
 
 	if (prepare_loader64(wsp))
 		return (WTF);
-//	last_phdr = PHDRS64(wsp->res) + PHNUM64(wsp->res) - 1;
 	loader = find_note_segment(wsp->res);
 	loader->p_type = PT_LOAD;
 	loader->p_flags = PF_X | PF_R;
@@ -85,13 +83,8 @@ int				insert_loader64(t_workspace *wsp)
 	if (loader->p_filesz == 0)
 		return (WTF);
 	loader->p_memsz = loader->p_filesz;
-	if (find_vaddr_and_offset64(wsp->res,
-			wsp->input_size, wsp->res_size, loader))
+	if (find_vaddr_and_offset64(wsp->res, loader))
 			return (WTF);
-//	loader->p_offset = wsp->input_size;
-//	loader->p_vaddr = 0x800000 + loader->p_offset;
-					//0x400000
-//	loader->p_align = 0x200000;
 	loader->p_paddr = loader->p_vaddr;
 	loader->p_filesz = copy_loader64(wsp->res + loader->p_offset, wsp->loader);
 	if (loader->p_filesz == 0)

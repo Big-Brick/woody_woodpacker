@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:27:13 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/26 19:59:08 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/29 17:39:12 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,7 @@ void				*find_symbol_by_name64(void *file, const char *name);
 
 int					prepare_loader64(t_workspace *wsp);
 
-int					copy_segments_and_headers64(t_workspace *wsp);
-
-int					add_new_segment64(t_workspace *wsp);
-
-int					insert_new_prog_hdr64(Elf64_Ehdr *file, size_t size);
-
 int					find_vaddr_and_offset64(Elf64_Ehdr *file,
-						size_t used_sz, size_t total_sz,
 						Elf64_Phdr *loader);
 
 size_t				copy_loader64(void *dst, void *loader);

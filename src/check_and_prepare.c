@@ -79,26 +79,6 @@ static int			prepare_file(char *filename, void **res, int prot, size_t *size)
 	return (OK);
 }
 
-static size_t		get_align64(Elf64_Ehdr *file)
-{
-	size_t			res;
-	size_t			i;
-	Elf64_Phdr		*phdr;
-
-	res = 0;
-	phdr = PHDRS64(file);
-	i = 0;
-	while (i < file->e_phnum)
-	{
-		if (phdr->p_type == PT_LOAD &&
-			phdr->p_align > res)
-			res = phdr->p_align;
-		phdr++;
-		i++;
-	}
-	return (res);
-}
-
 static int			prepare_output(t_workspace *wsp, size_t size)
 {
 	int				fd;

@@ -40,25 +40,13 @@ static int		check_vaddr64(Elf64_Ehdr *file, size_t start, size_t end)
 	return (1);
 }
 
-static size_t	get_offset(size_t end_of_file, size_t vaddr, size_t align)
-{
-	size_t		res;
-
-	res = vaddr % align;
-	while (res < end_of_file)
-		res += align;
-	return (res);
-}
-
 int				find_vaddr_and_offset64(Elf64_Ehdr *file,
-					size_t used_sz, size_t total_sz,
 					Elf64_Phdr *loader)
 {
 	Elf64_Phdr	*phdr;
 	size_t		i;
 	size_t		start;
 	size_t		end;
-//	size_t		offset;
 
 	phdr = PHDRS64(file);
 	i = 0;
@@ -70,14 +58,9 @@ int				find_vaddr_and_offset64(Elf64_Ehdr *file,
 		if (phdr->p_type == PT_LOAD &&
 			check_vaddr64(file, start, end))
 		{
-//			offset = get_offset(used_sz, start, phdr->p_align);
-//			if ((offset + loader->p_filesz) < total_sz)
-//			{
-//				loader->p_offset = offset;
-				loader->p_vaddr = start;
-				loader->p_align = phdr->p_align;
-				return (OK);
-//			}
+			loader->p_vaddr = start;
+			loader->p_align = phdr->p_align;
+			return (OK);
 		}
 		phdr++;
 		i++;
