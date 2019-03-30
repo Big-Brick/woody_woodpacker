@@ -47,17 +47,17 @@ void *ft_memmove(void *dst, const void *src, size_t len) {
     return (dst);
 }
 
-size_t ft_strlen(const char *s) {
-
-    size_t len = 0;
-
-    while (*s) {
-        len++;
-        s++;
-    }
-
-    return (len);
-}
+//size_t ft_strlen(const char *s) {
+//
+//    size_t len = 0;
+//
+//    while (*s) {
+//        len++;
+//        s++;
+//    }
+//
+//    return (len);
+//}
 
 int ft_strcmp(const char *s1, const char *s2) {
 
