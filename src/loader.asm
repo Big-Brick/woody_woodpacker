@@ -19,7 +19,7 @@ loader_start:
     pop rbx
     pop rax
  jumpaddr:
-    mov r15, 0x400430 ; ptr + .text->offset + jumpaddr_off + 1
+    mov r15, 0x40043000400430 ; ptr + .text->offset + jumpaddr_off + 2
     jmp r15
     msg db "....WOODY....", 0xA, 0x0, 0x0
 loader_end:

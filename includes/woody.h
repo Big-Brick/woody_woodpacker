@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:27:13 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/29 17:39:59 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/30 13:01:20 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define EXEC_NAME "woody"
 # define LOADER_NAME "loader.o"
+# define DECRYPTOR_NAME decryptor.o"
 
 typedef struct		s_workspace
 {
@@ -43,6 +44,8 @@ void				*get_section_by_index64(void *file, unsigned index, char res);
 void				*get_section_by_name64(void *file, const char *name, char res);
 
 void				*find_symbol_by_name64(void *file, const char *name);
+
+Elf64_Xword			get_symbol_size_by_name64(void *file, const char *name);
 
 int					prepare_loader64(t_workspace *wsp);
 

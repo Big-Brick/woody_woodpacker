@@ -20,15 +20,10 @@ RUN apt update \
     nasm                       \
     valgrind                   \
 	cmake \
+	gdb \
  && apt clean \
 
+RUN echo "layout regs" > /root/.gdbinit
+RUN echo "focus cmd" >> /root/.gdbinit
+RUN echo "set disassemble-flavor intel" >> /root/.gdbinit
 
-WORKDIR /root
-
-ARG UNAME=user
-ARG UID=1000
-ARG GID=1000
-RUN groupadd -g $GID -o $UNAME
-RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
-
-ENTRYPOINT bash
