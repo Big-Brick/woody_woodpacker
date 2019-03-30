@@ -18,11 +18,11 @@
 
 int		check_input_file(void *ptr, size_t size)
 {
-	Elf64_Ehdr	*hdr;
+//	Elf64_Ehdr	*hdr;
 
 	if (ptr == NULL || size == 0)
 		return (WTF);
-	hdr = ptr;
+//	hdr = ptr;
 //	if (hdr->e_type != ELFCLASS64)
 //	{
 //		write(1, "Only elf64 supported!\n", 22);

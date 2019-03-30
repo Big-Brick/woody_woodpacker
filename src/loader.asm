@@ -1,6 +1,8 @@
-section .text
+segment .text
+	global _start
+;	extern _xxtea_decrypt
 
-loader_start:
+_start:
     push rax
     push rbx
     push rcx
@@ -12,6 +14,7 @@ loader_start:
     lea rsi, [rel msg] ; &msg
     mov rdx, 16 ; size
     syscall
+;    call _xxtea_decrypt
     pop rsi
     pop rdi
     pop rdx
