@@ -20,7 +20,7 @@ int		check_input_file(void *ptr, size_t size)
 {
 	Elf64_Ehdr	*hdr;
 
-	if (ptr == NULL)
+	if (ptr == NULL || size == 0)
 		return (WTF);
 	hdr = ptr;
 //	if (hdr->e_type != ELFCLASS64)

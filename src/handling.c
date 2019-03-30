@@ -17,6 +17,7 @@
 void				handler(int signum)
 {
 	write(1, "Fail!\n", 6);
+	signum = 0;
 	exit(0);
 }
 

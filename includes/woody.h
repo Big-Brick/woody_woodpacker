@@ -19,7 +19,6 @@
 
 # define EXEC_NAME "woody"
 # define LOADER_NAME "loader.o"
-# define DECRYPTOR_NAME decryptor.o"
 
 typedef struct		s_workspace
 {

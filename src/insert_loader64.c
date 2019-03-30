@@ -50,25 +50,6 @@ static Elf64_Phdr *find_note_segment(Elf64_Ehdr *file)
 	return (NULL);
 }
 
-static size_t	get_vaddr(Elf64_Ehdr *file)
-{
-	Elf64_Phdr	*phdr;
-	size_t		i;
-	size_t		res = 0;
-
-	phdr = PHDRS64(file);
-	i = 0;
-	while (i < file->e_phnum)
-	{
-		if (phdr->p_type == PT_LOAD &&
-			res < (phdr->p_vaddr + phdr->p_memsz))
-			res = phdr->p_vaddr + phdr->p_memsz;
-		phdr++;
-		i++;
-	}
-	return (res);
-}
-
 int				insert_loader64(t_workspace *wsp)
 {
 	Elf64_Phdr	*loader;
