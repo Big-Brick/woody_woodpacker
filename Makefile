@@ -17,7 +17,6 @@ SDIR = src
 SRCS1 =	\
 	main.c \
 	check_and_prepare.c \
-	check_input_file.c \
 	get_section64.c \
 	find_symbol64.c \
 	prepare_loader64.c \

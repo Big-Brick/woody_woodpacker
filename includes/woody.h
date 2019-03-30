@@ -36,8 +36,6 @@ int					conf_handling(void);
 
 int					check_and_prepare(char *filename, t_workspace *wsp);
 
-int					check_input_file(void *ptr, size_t size);
-
 void				*get_section_by_index64(void *file, unsigned index, char res);
 
 void				*get_section_by_name64(void *file, const char *name, char res);
