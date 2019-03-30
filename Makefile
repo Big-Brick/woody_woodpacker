@@ -55,7 +55,7 @@ OBJ2 = $(OBJ2_T:%.asm=%.o)
 
 OBJ2_R = $(OBJ2:%.o=$(ODIR)/%.o)
 
-all : $(NAME1) $(NAME2)
+all : $(NAME1)
 
 $(NAME1) : $(ODIR)/ $(OBJ1_R)
 	make -C libft
