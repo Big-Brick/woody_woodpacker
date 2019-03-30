@@ -2,7 +2,7 @@ NAME1 = woody_woodpacker
 NAME2 = loader
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fPIC
 
 ASM = nasm
 AFLAGS = -f elf64

@@ -17,7 +17,6 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 set(SRCS
 	src/main.c
 	src/check_and_prepare.c
-	src/check_input_file.c
 	src/get_section64.c
 	src/find_symbol64.c
 	src/prepare_loader64.c
