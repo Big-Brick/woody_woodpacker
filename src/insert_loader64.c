@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:20:32 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/29 17:33:49 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/30 16:33:23 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,12 @@
 
 size_t			copy_loader64(void *dst, void *loader)
 {
-	void		*start;
-	void		*end;
-	size_t		size;
+	Elf64_Shdr	*text;
 
-	start = find_symbol_by_name64(loader, "loader_start");
-	end = find_symbol_by_name64(loader, "loader_end");
-	if (end <= start)
-		return (0);
-	size = end - start;
-	if (dst && start)
-		ft_memcpy(dst, start, size);
-	return (size);
+	text = get_section_by_name64(loader, ".text", HDR);
+	if (dst && text && text->sh_size)
+		ft_memcpy(dst, loader + text->sh_offset, text->sh_size);
+	return (text->sh_size);
 }
 
 static Elf64_Phdr *find_note_segment(Elf64_Ehdr *file)

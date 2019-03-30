@@ -1,6 +1,6 @@
 segment .text
 	global _start
-;	extern _xxtea_decrypt
+	extern xxtea_decrypt
 
 _start:
     push rax
@@ -14,7 +14,12 @@ _start:
     lea rsi, [rel msg] ; &msg
     mov rdx, 16 ; size
     syscall
-;    call _xxtea_decrypt
+text_addr:
+    mov rdi, 0x7700550033001100 ; addr
+text_len:
+    mov rsi, 0x7700550033001100 ; len
+    lea rdx, [rel key] ; &key
+    call xxtea_decrypt
     pop rsi
     pop rdi
     pop rdx
@@ -25,4 +30,5 @@ _start:
     mov r15, 0x40043000400430 ; ptr + .text->offset + jumpaddr_off + 2
     jmp r15
     msg db "....WOODY....", 0xA, 0x0, 0x0
+    key db "1234567890abcdef"
 loader_end:

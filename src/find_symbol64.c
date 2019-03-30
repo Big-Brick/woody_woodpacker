@@ -19,13 +19,12 @@
 #include "elf.h"
 #include "woody.h"
 
-void		*find_symbol_by_name64(void *file, const char *name)
+Elf64_Sym	*find_symbol_by_name64(void *file, const char *name)
 {
 	Elf64_Shdr	*symtab_hdr;
 	Elf64_Sym	*symtab;
 	char		*strtab;
 	size_t		i;
-	size_t		offset;
 
 
 	symtab_hdr = ((Elf64_Shdr*)get_section_by_name64(file, ".symtab", HDR));
@@ -35,11 +34,7 @@ void		*find_symbol_by_name64(void *file, const char *name)
 	while (((i + 1)*sizeof(*symtab)) <= symtab_hdr->sh_size)
 	{
 		if (ft_strcmp(strtab + symtab[i].st_name, name) == 0)
-		{
-			offset = SECT_HDRS64(file)[symtab[i].st_shndx].sh_offset;
-			offset += symtab[i].st_value;
-			return (file + offset);
-		}
+			return (symtab + i);
 		i++;
 	}
 	return (NULL);
