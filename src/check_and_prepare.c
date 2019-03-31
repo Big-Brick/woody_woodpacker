@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:31:02 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/29 17:37:26 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/31 12:33:04 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void error(const char *err, const char *err_str) {
 	exit(EXIT_FAILURE);
 }
 
-static void file_type_validation(const char *filename, void *ptr, size_t size) {
+/*static void file_type_validation(const char *filename, void *ptr, size_t size) {
 
 	Elf64_Ehdr *header = ptr;
 
@@ -130,7 +130,7 @@ static void file_size_validation(const char *filename, void *ptr, size_t size) {
 	if (size < sheader->sh_offset + sheader->sh_size || \
 		size < pheader->p_offset  + pheader->p_filesz)
 		error(filename, "file is corrupted");
-}
+}*/
 
 static void init(const char *filename, void **ptr, size_t *size) {
 
@@ -147,8 +147,8 @@ static void init(const char *filename, void **ptr, size_t *size) {
 
 	close(fd);
 
-	file_type_validation(filename, *ptr, *size);
-	file_size_validation(filename, *ptr, *size);
+//	file_type_validation(filename, *ptr, *size);
+//	file_size_validation(filename, *ptr, *size);
 }
 
 int					check_and_prepare(char *filename, t_workspace *wsp)
