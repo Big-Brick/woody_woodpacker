@@ -53,6 +53,8 @@ size_t				copy_loader64(void *dst, void *loader);
 
 int					insert_loader64(t_workspace *wsp);
 
+void				xxtea_encrypt(uint8_t *data, size_t len, const uint32_t *key);
+
 int					modify_elf64(t_workspace *wsp);
 
 #endif

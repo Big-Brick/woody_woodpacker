@@ -14,13 +14,17 @@ _start:
     lea rsi, [rel msg] ; &msg
     mov rdx, 16 ; size
     syscall
-    mov rax, 0x7d ; sys_mprotect
+    mov rax, 0xa ; sys_mprotect
+text_page_addr:
+    mov rdi, 0x7700550033001100 ; addr
+text_page_len:
+    mov rsi, 0x7700550033001100 ; len
+    mov rdx, 7 ; PROT_READT | PROT_WRITE | PROT_EXEC
+    syscall
 text_addr:
     mov rdi, 0x7700550033001100 ; addr
 text_len:
     mov rsi, 0x7700550033001100 ; len
-    mov rdx, 7
-    syscall
     lea rdx, [rel key] ; &key
     call xxtea_decrypt
     pop rsi

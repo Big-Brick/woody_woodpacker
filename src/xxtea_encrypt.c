@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 13:13:51 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/29 13:14:31 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/31 10:31:48 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 
 void	xxtea_encrypt(uint32_t *data, size_t len, const uint32_t *key)
 {
+/*	if (key == NULL)
+		return ;
+	while (len)
+	{
+		*data = ~(*data);
+		data++;
+		len--;
+	}*/
 	uint32_t	rounds = 6 + 52 / len;
 	uint32_t	n = (uint32_t)len - 1;
 	uint32_t	z = data[n];
