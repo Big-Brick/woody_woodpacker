@@ -64,7 +64,7 @@ static int			prepare_output(t_workspace *wsp, size_t size)
 	return (OK);
 }
 
-static void error(const char *err, const char *err_str) {
+void error(const char *err, const char *err_str) {
 
 	if (err && err_str)
 		fprintf(stderr, "woody: %s: %s\n", err, err_str);

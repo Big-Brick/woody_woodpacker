@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   insert_loader64.c                                  :+:      :+:    :+:   */
+/*   replace_note_segment_on_loader64.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 19:20:32 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/30 16:33:23 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/31 11:16:57 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ static Elf64_Phdr *find_note_segment(Elf64_Ehdr *file)
 	return (NULL);
 }
 
-int				insert_loader64(t_workspace *wsp)
+int				replace_note_segment_on_loader64(t_workspace *wsp)
 {
 	Elf64_Phdr	*loader;
 
-	if (prepare_loader64(wsp))
-		return (WTF);
 	loader = find_note_segment(wsp->res);
 	loader->p_type = PT_LOAD;
 	loader->p_flags = PF_X | PF_R;

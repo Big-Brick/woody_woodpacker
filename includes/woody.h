@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:27:13 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/30 16:32:15 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/03/31 11:43:26 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,16 @@ int					find_vaddr_and_offset64(Elf64_Ehdr *file,
 
 size_t				copy_loader64(void *dst, void *loader);
 
-int					insert_loader64(t_workspace *wsp);
+int					replace_note_segment_on_loader64(t_workspace *wsp);
+
+int					insert_loader_in_the_end_of_segment64(void *ptr, void *loader);
 
 void				xxtea_encrypt(uint8_t *data, size_t len, const uint32_t *key);
 
+void				modify_segment(void *ptr);
+
 int					modify_elf64(t_workspace *wsp);
+
+void				error(const char *err, const char *err_str);
 
 #endif

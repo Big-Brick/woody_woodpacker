@@ -6,11 +6,13 @@
 #include <unistd.h> // close(), lseek()
 #include <assert.h>
 
+#include "libft.h"
+
 const char  *key = "1234567890abcdef";
 
 void loader(void);
 //extern uint32_t _loader;     // loader size
-//extern uint32_t sloader;     // loader size
+extern uint32_t sloader;     // loader size
 static uint32_t aloader;     // loader align
 static uint32_t oloader;     // loader offset
 static uint32_t dloader = 4; // loader data
@@ -105,8 +107,8 @@ static void encrypt_text_section(void *ptr, size_t size) {
     stext = sheader->sh_size;
 
     /* XXTEA works with blocks of 32 bits */
-    xxtea_encrypt(text, stext / 4, (uint32_t *)key);
-    xxtea_decrypt(text, stext / 4, (uint32_t *)key);
+//    xxtea_encrypt(text, stext / 4, (uint32_t *)key);
+//    xxtea_decrypt(text, stext / 4, (uint32_t *)key);
 }
 
 /* returns loader offset in file */
@@ -153,42 +155,9 @@ void modify_segment(void *ptr) {
         }
     }
     uint32_t e_entry = ((Elf64_Ehdr *)ptr)->e_entry;
-    header->e_entry = pheader[load].p_vaddr + pheader[load].p_filesz + aloader + _loader;
+    header->e_entry = pheader[load].p_vaddr + pheader[load].p_filesz + aloader;
     pheader[load].p_memsz  += sloader;
     pheader[load].p_filesz += aloader + sloader;
     new_ep = pheader[load].p_vaddr + pheader[load].p_memsz - e_entry;
-    debug("new_ep        : %p",  (void *)new_ep);
-}
-
-#include <string.h>
-#include <errno.h>
-
-void modify_elf(void *ptr, size_t size) {
-
-    int fd;
-    uint32_t e_entry = ((Elf64_Ehdr *)ptr)->e_entry;
-
-    encrypt_text_section(ptr, size);
-//    modify_segment(ptr);
-
-    if ((fd = open(EXEC_NAME, O_RDWR | O_CREAT, 0755)) == -1)
-        error(EXEC_NAME, strerror(errno));
-
-//    debug("loader        : %p",  loader);
-//    debug("loader size   : %d",  sloader);
-    debug("loader offset : %ld", (long)oloader);
-    debug("loader align  : %ld", (long)aloader);
-    debug("rest          : %lu", (unsigned long)(size - oloader));
-    debug("e_entry       : %p",  (void *)e_entry);
-
-    write(fd, ptr, oloader);
-    for (size_t i = 0; i < aloader; i++)
-        write(fd, "\0", 1);
-//    write(fd, &loader, sloader);
-//    write(fd, buff, 1);
- //   write(fd, &e_entry, 4);
-//    write(1, "\n", 1);
-    write(fd, ptr + oloader, size - oloader);
-
-    close(fd);
+//    debug("new_ep        : %p",  (void *)new_ep);
 }

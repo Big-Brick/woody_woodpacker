@@ -21,11 +21,11 @@ set(SRCS
 	src/find_symbol64.c
 	src/prepare_loader64.c
 	src/modify_elf64.c
-	src/insert_loader64.c
+	src/replace_note_segment_on_loader64.c
+	src/insert_loader_int_the_end_of_segment64.c
 	src/find_vaddr64.c
 	src/xxtea_encrypt.c
-	src/handling.c
-	src/offset_into_vaddr64.c)
+	src/handling.c)
 
 add_executable(woody_woodpacker ${SRCS})
 

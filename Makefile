@@ -21,11 +21,10 @@ SRCS1 =	\
 	find_symbol64.c \
 	prepare_loader64.c \
 	modify_elf64.c \
-	insert_loader64.c \
+	replace_note_segment_on_loader64.c \
 	find_vaddr64.c \
 	xxtea_encrypt.c \
-	handling.c \
-	offset_into_vaddr64.c
+	handling.c
 
 SRCS1_R = $(SRCS1:%.c=$(SDIR)/%.c)
 
