@@ -1,5 +1,9 @@
 .idea
 build
 loader.o
+loader
 woody*
 CMakeFiles*
+test*
+Objects
+*.a

@@ -8,7 +8,7 @@ ASM = nasm
 AFLAGS = -f elf64
 
 LD = ld
-LDFLAGS =
+LDFLAGS = -pie
 
 INC = includes
 
@@ -24,7 +24,8 @@ SRCS1 =	\
 	replace_note_segment_on_loader64.c \
 	find_vaddr64.c \
 	xxtea_encrypt.c \
-	handling.c
+	handling.c \
+	text_injection64.c
 
 SRCS1_R = $(SRCS1:%.c=$(SDIR)/%.c)
 
@@ -54,14 +55,14 @@ OBJ2 = $(OBJ2_T:%.asm=%.o)
 
 OBJ2_R = $(OBJ2:%.o=$(ODIR)/%.o)
 
-all : $(NAME1)
+all : $(NAME1) $(NAME2)
 
 $(NAME1) : $(ODIR)/ $(OBJ1_R)
 	make -C libft
 	$(CC) $(CFLAGS) -o $(NAME1) $(OBJ1_R) libft/libft.a
 
 $(NAME2) : $(ODIR)/ $(OBJ2_R)
-	$(LD) -o $(NAME2) $(OBJ2_R)
+	$(LD) $(LDFLAGS) -o $(NAME2) $(OBJ2_R)
 
 .PHONY: clean1 fclean1 dfclean1 re1 clean fclean re
 
@@ -73,12 +74,20 @@ fclean1 : clean1
 
 re1 : fclean1 $(NAME1)
 
-clean: clean1
+clean2 :
+	rm -f $(OBJ2_R)
 
-fclean : fclean1
+fclean2 : clean2
+	rm -f $(NAME2)
+
+re2 : fclean2 $(NAME2)
+
+clean: clean1 clean2
+
+fclean : fclean1 fclean2
 	make fclean -C Libs/libft
 
-re : re1
+re : fclean $(NAME1) $(NAME2)
 
 norm:
 	make norm -C libft

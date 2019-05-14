@@ -160,7 +160,7 @@ int					check_and_prepare(char *filename, t_workspace *wsp)
 		return (WTF);
 	init(filename, &wsp->input, &wsp->input_size);
 	init(LOADER_NAME, &wsp->loader, &wsp->loader_size);
-	size = copy_loader64(NULL, wsp->loader);
+	size = (size_t)sysconf(_SC_PAGESIZE);
 	if (size == 0)
 		size = wsp->loader_size;
 	if (prepare_output(wsp, wsp->input_size + size))

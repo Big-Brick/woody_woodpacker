@@ -6,7 +6,7 @@
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/24 15:27:13 by adzikovs          #+#    #+#             */
-/*   Updated: 2019/03/31 11:43:26 by adzikovs         ###   ########.fr       */
+/*   Updated: 2019/05/14 07:33:44 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,17 @@ size_t				copy_loader64(void *dst, void *loader);
 
 int					replace_note_segment_on_loader64(t_workspace *wsp);
 
-int					insert_loader_in_the_end_of_segment64(void *ptr, void *loader);
-
 void				xxtea_encrypt(uint8_t *data, size_t len, const uint32_t *key);
 
-void				modify_segment(void *ptr);
+Elf64_Phdr			*select_segment64(void *file);
+
+void				move_sections64(void *file, size_t ins_offset, size_t ins_size);
+
+void				move_segments64(void *file, size_t ins_offset, size_t ins_size);
 
 int					modify_elf64(t_workspace *wsp);
+
+int					text_injection64(t_workspace *wsp);
 
 void				error(const char *err, const char *err_str);
 

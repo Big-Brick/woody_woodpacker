@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   defines.h                                          :+:      :+:    :+:   */
+/*   select_segment64.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adzikovs <adzikovs@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/25 13:19:13 by a.dzykovskyi      #+#    #+#             */
-/*   Updated: 2019/03/26 19:20:28 by adzikovs         ###   ########.fr       */
+/*   Created: 2019/05/14 07:25:29 by adzikovs          #+#    #+#             */
+/*   Updated: 2019/05/14 07:25:29 by adzikovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOODPACKER_DEFINES_H
-# define WOODPACKER_DEFINES_H
+#include "elf.h"
+#include "woody.h"
+#include "defines.h"
 
-# define HDR 0
-# define SECT 1
+Elf64_Phdr			*select_segment64(void *file)
+{
+	Elf64_Phdr		*phdr;
+	size_t			i;
 
-# define PHNUM64(p) (((Elf64_Ehdr*)p)->e_phnum)
-# define PHDRS64(p) ((Elf64_Phdr*)((void*)p + ((Elf64_Ehdr*)p)->e_phoff))
-# define SHNUM(p) (((Elf64_Ehdr*)file)->e_shnum)
-# define SECT_HDRS64(p) ((Elf64_Shdr*)((void*)p + ((Elf64_Ehdr*)p)->e_shoff))
-
-#endif
+	phdr = PHDRS64(file);
+	i = 0;
+	while (i < PHNUM64(file))
+	{
+		if (phdr->p_type == PT_LOAD &&
+			(phdr->p_flags & PF_X) &&
+			(phdr->p_flags & PF_R))
+			return (phdr);
+		phdr++;
+		i++;
+	}
+	return (NULL);
+}

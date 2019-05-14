@@ -22,10 +22,10 @@ set(SRCS
 	src/prepare_loader64.c
 	src/modify_elf64.c
 	src/replace_note_segment_on_loader64.c
-	src/insert_loader_int_the_end_of_segment64.c
 	src/find_vaddr64.c
 	src/xxtea_encrypt.c
-	src/handling.c)
+	src/handling.c
+	src/text_injection64.c src/select_segment64.c src/move_segments64.c)
 
 add_executable(woody_woodpacker ${SRCS})
 
